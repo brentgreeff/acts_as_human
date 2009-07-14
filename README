@@ -1,13 +1,22 @@
 ActsAsHuman
 ===========
 
-Introduction goes here.
+Adds:
+  full_name
+and
+  full_name=
+instance methods to a model
 
+Adds validations to ensure that the names are reasonable.
+
+Requires:
+  first_name, last_name and middle_names fields on the model
 
 Example
 =======
 
-Example goes here.
+class User < ActiveRecord::Base
+  acts_as_human
+end
 
-
-Copyright (c) 2009 [name of plugin creator], released under the MIT license
+Copyright (c) 2009 [Brent Greeff], released under the MIT license
