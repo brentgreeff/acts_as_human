@@ -6,4 +6,10 @@ ActiveRecord::Schema.define(:version => 20090628014113) do
     t.string   "last_name"
   end
   
+  create_table "customers", :force => true do |t|
+    t.string   "first_name"
+    t.string   "middle_names"
+    t.string   "last_name"
+  end
+  
 end

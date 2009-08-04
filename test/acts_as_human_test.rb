@@ -6,26 +6,35 @@ class ActsAsHumanTest < ActiveSupport::TestCase
     acts_as_human
   end
   
+  class Customer < ActiveRecord::Base
+    acts_as_human :require_last_name => false
+  end
+  
   def test_should_require_a_first_name
     user = create_user
     user.first_name = ''
     
     deny user.valid?, 'Should not be valid without a first name'
-    assert_equal 'please enter your first name', user.errors[:first_name]
+    assert_equal 'first name is required', user.errors[:first_name]
   end
   
   def test_should_have_first_name_that_is_less_than_40_characters
     user = User.new(:first_name => 'aaaaabbbbbcccccdddddeeeeefffffggggghhhhhi')
     
     deny user.valid?
-    assert_equal 'first name is too long', user.errors[:first_name]
+    assert_equal 'first name is too long (max 40 characters)', user.errors[:first_name]
   end
   
   def test_should_require_a_last_name
     user = User.new(:first_name => 'Brent')
     
     deny user.valid?
-    assert_equal 'please enter your last name', user.errors[:last_name]
+    assert_equal 'last name is required', user.errors[:last_name]
+  end
+  
+  def test_should_not_require_a_last_name_if_not_required
+    someone_else = create_customer(:first_name => 'Brent')
+    assert someone_else.valid?
   end
   
   def test_should_have_last_name_that_is_less_than_40_characters
@@ -33,14 +42,14 @@ class ActsAsHumanTest < ActiveSupport::TestCase
     user.last_name = 'aaaaabbbbbcccccdddddeeeeefffffggggghhhhhi'
     
     deny user.valid?
-    assert_equal 'last name is too long', user.errors[:last_name]
+    assert_equal 'last name is too long (max 40 characters)', user.errors[:last_name]
   end
   
   def test_should_have_a_last_name_when_assigned_through_full_name
     user = User.new(:full_name => 'Brent')
     
     deny user.valid?
-    assert_equal 'please enter your last name', user.errors[:last_name]
+    assert_equal 'last name is required', user.errors[:last_name]
   end
   
   def test_should_have_full_name_composed_of_first_and_last_name
@@ -73,7 +82,7 @@ class ActsAsHumanTest < ActiveSupport::TestCase
     user.middle_names = 'aaaaabbbbbcccccdddddeeeeefffffggggghhhhhi'
     
     deny user.valid?
-    assert_equal 'middle names are too long', user.errors[:middle_names]
+    assert_equal 'middle names are too long (max 40 characters)', user.errors[:middle_names]
   end
   
   def test_should_have_a_empty_full_name_when_user_is_new
@@ -99,6 +108,15 @@ class ActsAsHumanTest < ActiveSupport::TestCase
     }
     
     return User.create!(default_options.merge(options))
+  end
+  
+  def create_customer(options={})
+    default_options = {
+      :first_name => "Brent",
+      :last_name => "Greeff"
+    }
+    
+    return Customer.create!(default_options.merge(options))
   end
   
   def deny(expected_to_be_false, message = '')
