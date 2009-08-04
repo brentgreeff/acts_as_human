@@ -33,7 +33,7 @@ class ActsAsHumanTest < ActiveSupport::TestCase
   end
   
   def test_should_not_require_a_last_name_if_not_required
-    someone_else = create_customer(:first_name => 'Brent')
+    someone_else = Customer.new(:first_name => 'Brent')
     assert someone_else.valid?
   end
   
