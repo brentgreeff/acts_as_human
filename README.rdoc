@@ -21,14 +21,16 @@ Adds validations to ensure that the names are reasonable.
 
 * user = User.new(:first_name => 'Brent', :last_name => 'Greeff')
       user.full_name
-      => "Brent Greeff"
+        => "Brent Greeff"
 
 * user = User.new(:full_name => "Brent Wicked Middle Names Greeff")
       user.first_name
-      => "Brent"
+        => "Brent"
+      
       user.last_name
-      => "Greeff"
+        => "Greeff"
+      
       user.middle_names
-      => "Wicked Middle Names"
+        => "Wicked Middle Names"
 
 Copyright (c) 2009 [Brent Greeff], released under the MIT license
