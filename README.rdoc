@@ -14,10 +14,10 @@ Adds validations to ensure that the names are reasonable.
 @todo Need to add rake task to add fields to model.
 
 == Example
-
-class User < ActiveRecord::Base
-  acts_as_human
-end
+      
+      class User < ActiveRecord::Base
+        acts_as_human
+      end
 
 * user = User.new(:first_name => 'Brent', :last_name => 'Greeff')
       user.full_name
