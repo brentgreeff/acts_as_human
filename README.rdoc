@@ -1,0 +1,34 @@
+= ActsAsHuman
+
+* Adds:
+      full_name
+* and
+      full_name=
+instance methods to a model
+
+Adds validations to ensure that the names are reasonable.
+
+* Requires:
+      first_name, last_name and middle_names columns on the model
+
+@todo Need to add rake task to add fields to model.
+
+== Example
+
+class User < ActiveRecord::Base
+  acts_as_human
+end
+
+* user = User.new(:first_name => 'Brent', :last_name => 'Greeff')
+      user.full_name
+      => "Brent Greeff"
+
+* user = User.new(:full_name => "Brent Wicked Middle Names Greeff")
+      user.first_name
+      => "Brent"
+      user.last_name
+      => "Greeff"
+      user.middle_names
+      => "Wicked Middle Names"
+
+Copyright (c) 2009 [Brent Greeff], released under the MIT license
