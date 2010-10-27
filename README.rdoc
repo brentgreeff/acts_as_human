@@ -1,5 +1,15 @@
 = ActsAsHuman
 
+== Install
+Use the Gem:
+
+      gem install acts_as_human
+
+With braid:
+
+      braid add git://github.com/brentgreeff/acts_as_human.git -p
+
+
 * Adds:
       full_name
 * and
