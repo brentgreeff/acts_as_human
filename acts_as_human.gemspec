@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.description = %q{Rails plugin to handle first_name, middle_names and last_name combinations.}
   s.email = %q{email@brentgreeff.com}
   s.extra_rdoc_files = [
-    "LICENSE",
+    "MIT-LICENSE",
     "README.rdoc"
   ]
   s.files = [
