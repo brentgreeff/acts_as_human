@@ -1,10 +1,10 @@
 Gem::Specification.new do |s|
   s.name = %q{acts_as_human}
-  s.version = "2.0.0"
+  s.version = "2.0.1"
   
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Brent Greeff"]
-  s.date = %q{2010-10-27}
+  s.date = %q{2010-10-29}
   s.description = %q{Rails plugin to handle first_name, middle_names and last_name combinations.}
   s.email = %q{email@brentgreeff.com}
   s.extra_rdoc_files = [
