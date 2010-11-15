@@ -58,7 +58,11 @@ class ActsAsHumanTest < ActiveSupport::TestCase
   end
   
   test "should have a full name composed of first middle and last names" do
-    user = User.new(:first_name => 'Brent', :middle_names => 'Middle Names', :last_name => 'Greeff')
+    user = User.new(
+      :first_name => 'Brent',
+      :middle_names => 'Middle Names',
+      :last_name => 'Greeff'
+    )
     assert_equal 'Brent Middle Names Greeff', user.full_name
   end
   
@@ -97,6 +101,22 @@ class ActsAsHumanTest < ActiveSupport::TestCase
     assert_equal 'some characters in your name are not allowed', user.errors[:first_name]
     assert_equal 'some characters in your name are not allowed', user.errors[:last_name]
     assert_equal 'some characters in your name are not allowed', user.errors[:middle_names]
+  end
+  
+  test "should split up scottish names correctly" do
+    user = User.new(:full_name => "Ewan Mc Greggor")
+    
+    assert_equal 'Ewan', user.first_name
+    assert_equal 'Mc Greggor', user.last_name
+    assert_nil user.middle_names
+  end
+  
+  test "should split up scottish names with middle names correctly" do
+    user = User.new(:full_name => "Jade Frances Roseanne Mc Cracken")
+    
+    assert_equal 'Jade', user.first_name
+    assert_equal 'Mc Cracken', user.last_name
+    assert_equal 'Frances Roseanne', user.middle_names
   end
   
   private

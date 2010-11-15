@@ -3,20 +3,23 @@ require 'active_support'
 require 'active_support/test_case'
 require 'test/unit'
 
-ENV['RAILS_ENV'] = 'test'
-ENV['RAILS_ROOT'] ||= File.dirname(__FILE__) + '/../../../..'
-
 require 'active_record'
 
-current_dir = File.expand_path(File.dirname(__FILE__))
+CurrentDir = File.expand_path(File.dirname(__FILE__))
 
-ActiveRecord::Base.logger = Logger.new(File.join(current_dir, "debug.log"))
-config = YAML::load(IO.read(File.join(current_dir, 'database.yml')))
-ActiveRecord::Base.establish_connection(config['test'])
+# log_path = File.join(CurrentDir, "debug.log")
+# ActiveRecord::Base.logger = Logger.new(log_path)
 
-load(File.join(current_dir, "/schema.rb"))
+def load_db_config
+  database_yml = File.join(CurrentDir, 'database.yml')
+  config = YAML::load(IO.read(database_yml))
+  config['test']
+end
 
-$: << (File.join(current_dir, "..", "lib"))
+ActiveRecord::Base.establish_connection(load_db_config)
+load(File.join(CurrentDir, "schema.rb"))
+
+$: << (File.join(CurrentDir, "..", "lib"))
 
 begin
   require 'redgreen' unless ENV['TM_MODE']
