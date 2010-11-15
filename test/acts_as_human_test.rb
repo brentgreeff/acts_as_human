@@ -10,7 +10,7 @@ class ActsAsHumanTest < ActiveSupport::TestCase
     acts_as_human :require_last_name => false
   end
   
-  def test_should_require_a_first_name
+  test "should require a first name" do
     user = create_user
     user.first_name = ''
     
@@ -18,26 +18,26 @@ class ActsAsHumanTest < ActiveSupport::TestCase
     assert_equal 'first name is required', user.errors[:first_name]
   end
   
-  def test_should_have_first_name_that_is_less_than_40_characters
+  test "should have a first name that is less than 40 characters" do
     user = User.new(:first_name => 'aaaaabbbbbcccccdddddeeeeefffffggggghhhhhi')
     
     deny user.valid?
     assert_equal 'first name is too long (max 40 characters)', user.errors[:first_name]
   end
   
-  def test_should_require_a_last_name
+  test "should require a last name" do
     user = User.new(:first_name => 'Brent')
     
     deny user.valid?
     assert_equal 'last name is required', user.errors[:last_name]
   end
   
-  def test_should_not_require_a_last_name_if_not_required
+  test "should not require a last name if it is not required" do
     someone_else = Customer.new(:first_name => 'Brent')
     assert someone_else.valid?
   end
   
-  def test_should_have_last_name_that_is_less_than_40_characters
+  test "should have a last name that is less than 40 characters" do
     user = create_user
     user.last_name = 'aaaaabbbbbcccccdddddeeeeefffffggggghhhhhi'
     
@@ -45,31 +45,31 @@ class ActsAsHumanTest < ActiveSupport::TestCase
     assert_equal 'last name is too long (max 40 characters)', user.errors[:last_name]
   end
   
-  def test_should_have_a_last_name_when_assigned_through_full_name
+  test "should have a last name when assigned through full name" do
     user = User.new(:full_name => 'Brent')
     
     deny user.valid?
     assert_equal 'last name is required', user.errors[:last_name]
   end
   
-  def test_should_have_full_name_composed_of_first_and_last_name
+  test "should have a full name composed of first and last names" do
     user = User.new(:first_name => 'Brent', :last_name => 'Greeff')
     assert_equal 'Brent Greeff', user.full_name
   end
   
-  def test_should_have_full_name_composed_of_first_middle_and_last_name
+  test "should have a full name composed of first middle and last names" do
     user = User.new(:first_name => 'Brent', :middle_names => 'Middle Names', :last_name => 'Greeff')
     assert_equal 'Brent Middle Names Greeff', user.full_name
   end
   
-  def test_should_assign_first_and_last_name_when_assigning_to_full_name
+  test "should assign first and last name when assigning to full name" do
     user = User.new(:full_name => 'Brent Greeff')
     
     assert_equal 'Brent', user.first_name
     assert_equal 'Greeff', user.last_name
   end
   
-  def test_should_assign_first_last_and_middle_names_when_assigning_to_full_name
+  test "should assign first last and middle names when assigning to full name" do
     user = User.new(:full_name => 'Brent Middle Names Greeff')
     
     assert_equal 'Brent', user.first_name
@@ -77,7 +77,7 @@ class ActsAsHumanTest < ActiveSupport::TestCase
     assert_equal 'Greeff', user.last_name
   end
   
-  def test_should_have_middle_names_that_are_less_than_40_characters
+  test "should have middle names that are less than 40 characters" do
     user = create_user
     user.middle_names = 'aaaaabbbbbcccccdddddeeeeefffffggggghhhhhi'
     
@@ -85,12 +85,12 @@ class ActsAsHumanTest < ActiveSupport::TestCase
     assert_equal 'middle names are too long (max 40 characters)', user.errors[:middle_names]
   end
   
-  def test_should_have_a_empty_full_name_when_user_is_new
+  test "should have an empty full name when user is new" do
     user = User.new
     assert_equal '', user.full_name
   end
   
-  def test_should_not_allow_non_name_like_characters
+  test "should not allow non name like characters" do
     user = User.new(:full_name => "<Brent> Middle >< Names Gre&eff")
     
     deny user.valid?
@@ -122,5 +122,4 @@ class ActsAsHumanTest < ActiveSupport::TestCase
   def deny(expected_to_be_false, message = '')
     assert ! expected_to_be_false, message
   end
-  
 end
