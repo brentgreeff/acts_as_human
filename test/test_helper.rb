@@ -6,12 +6,21 @@ require 'test/unit'
 ENV['RAILS_ENV'] = 'test'
 ENV['RAILS_ROOT'] ||= File.dirname(__FILE__) + '/../../../..'
 
-require File.expand_path(File.join(ENV['RAILS_ROOT'], 'config/environment.rb'))
+require 'active_record'
 
-ActiveRecord::Base.logger = Logger.new(File.dirname(__FILE__) + "/debug.log")
-config = YAML::load(IO.read(File.dirname(__FILE__) + '/database.yml'))
+current_dir = File.expand_path(File.dirname(__FILE__))
+
+ActiveRecord::Base.logger = Logger.new(File.join(current_dir, "debug.log"))
+config = YAML::load(IO.read(File.join(current_dir, 'database.yml')))
 ActiveRecord::Base.establish_connection(config['test'])
 
-load(File.dirname(__FILE__) + "/schema.rb")
+load(File.join(current_dir, "/schema.rb"))
 
-require File.dirname(__FILE__) + '/../rails/init.rb'
+$: << (File.join(current_dir, "..", "lib"))
+
+begin
+  require 'redgreen' unless ENV['TM_MODE']
+rescue LoadError
+end
+
+require 'acts_as_human.rb'

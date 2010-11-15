@@ -11,5 +11,4 @@ ActiveRecord::Schema.define(:version => 20090628014113) do
     t.string   "middle_names"
     t.string   "last_name"
   end
-  
 end
