@@ -25,7 +25,6 @@ module ActiveRecord
 			  config.update(attr_names.pop) if attr_names.last.is_a?(Hash)
 		    validates_format_of attr_names, config
 			end
-
     end
   end
 end

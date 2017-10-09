@@ -1,10 +1,5 @@
 module ActsAs
   module Human
-
-    def self.included(base)
-      base.send :extend, ClassMethods
-    end
-
     module ClassMethods
 
       def acts_as_human(options={})
@@ -15,7 +10,6 @@ module ActsAs
         else
           @require_last_name = true
         end
-        send :include, InstanceMethods
 
         class_eval do
           validates_presence_of :first_name, message: 'first name is required'
@@ -44,4 +38,4 @@ module ActsAs
   end
 end
 
-ActiveRecord::Base.send(:include, ActsAs::Human)
+ActiveRecord::Base.send(:extend, ActsAs::Human::ClassMethods)

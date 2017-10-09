@@ -44,3 +44,5 @@ module ActsAs
     end
   end
 end
+
+ActiveRecord::Base.send(:include, ActsAs::Human::InstanceMethods)
