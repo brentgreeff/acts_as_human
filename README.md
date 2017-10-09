@@ -1,7 +1,15 @@
 # ActsAsHuman
 
-## Install
-Bundler
+Enable users to provide their full name in a single text input.
+Saves to 3 separate fields:
+first_name, middle_names and last_name allowing you to easily display their name
+in different formats in different places.
+
+Validations limit each name field to 40 characters each, allowing a total length of 120 characters for the full name.
+Non-name like characters are invalid.
+
+
+## Bundler
 
     gem acts_as_human
 
@@ -20,15 +28,19 @@ Adds validations to ensure that the names are reasonable.
       acts_as_human
     end
     
-Supplied first and last names:    
+Supplying first and last names separately:    
     `user = User.new(first_name: 'Brent', last_name: 'Greeff')`
     
+You can then read the full_name
+
     user.full_name
       => "Brent Greeff"
 
-Supplied first, middle and last names:    
+Supplying a full_name:    
     `user = User.new(:full_name => "Brent Wicked Middle Names Greeff")`
     
+You can then read the individual names:
+
     user.first_name
       => "Brent"
 
