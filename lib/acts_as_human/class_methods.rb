@@ -6,9 +6,9 @@ module ActsAs
         cattr_accessor :require_last_name
 
         if options.has_key? :require_last_name
-          @require_last_name = options[:require_last_name]
+          self.require_last_name = options[:require_last_name]
         else
-          @require_last_name = true
+          self.require_last_name = true
         end
 
         class_eval do
@@ -24,7 +24,7 @@ module ActsAs
 
           validates_as_person_name :middle_names, allow_nil: true
 
-          validates_presence_of :last_name, if: Proc.new { @require_last_name },
+          validates_presence_of :last_name, if: -> { self.require_last_name },
             message: 'last name is required'
 
           validates_length_of :last_name, maximum: 40,

@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+
+require 'active_support'
+require 'active_record'
+require './spec/init_schema'
+
+require "acts_as_human"
+
+require "pry"
+Pry.start
+
+# require "irb"
+# IRB.start(__FILE__)
