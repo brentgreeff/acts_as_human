@@ -1,25 +1,16 @@
 # ActsAsHuman
 
 ## Install
-Use the Gem:
+Bundler
 
-      `gem install acts_as_human`
+    gem acts_as_human
 
-With braid:
-
-      `braid add git://github.com/brentgreeff/acts_as_human.git -p`
-
-
-* Adds:
-      full_name
-* and
-      full_name=
-instance methods to a model
+* Adds `full_name` and `full_name=` instance methods to a model.
 
 Adds validations to ensure that the names are reasonable.
 
 * Requires:
-      first_name, last_name and middle_names columns on the model
+      first_name, last_name and middle_names columns in the database.
 
 @todo Need to add rake task to add fields to model.
 
@@ -28,19 +19,23 @@ Adds validations to ensure that the names are reasonable.
     class User < ActiveRecord::Base
       acts_as_human
     end
-
-* `user = User.new(:first_name => 'Brent', :last_name => 'Greeff')`
+    
+Supplied first and last names:    
+    `user = User.new(first_name: 'Brent', last_name: 'Greeff')`
+    
     user.full_name
       => "Brent Greeff"
 
-    $ user = User.new(:full_name => "Brent Wicked Middle Names Greeff")`
+Supplied first, middle and last names:    
+    `user = User.new(:full_name => "Brent Wicked Middle Names Greeff")`
+    
     user.first_name
       => "Brent"
 
-    $ user.last_name
+    user.last_name
       => "Greeff"
 
-    $ user.middle_names
+    user.middle_names
       => "Wicked Middle Names"
 
 ## Contributing
