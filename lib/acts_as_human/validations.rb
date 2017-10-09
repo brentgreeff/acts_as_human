@@ -1,3 +1,12 @@
+module ActsAs
+  module Human
+    mattr_accessor :acceptable_name, :bad_name_message
+
+    self.acceptable_name = /\A[^[:cntrl:]\\<>\/&]*\z/
+    self.bad_name_message = "some characters in your name are not allowed".freeze
+  end
+end
+
 module ActiveRecord
   module Validations
     module ClassMethods

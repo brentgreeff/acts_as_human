@@ -1,9 +1,5 @@
 module ActsAs
   module Human
-    mattr_accessor :acceptable_name, :bad_name_message
-
-    self.acceptable_name = /\A[^[:cntrl:]\\<>\/&]*\z/
-    self.bad_name_message = "some characters in your name are not allowed".freeze
 
     def self.included(base)
       base.send :extend, ClassMethods
