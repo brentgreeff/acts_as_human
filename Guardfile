@@ -30,8 +30,6 @@ guard :rspec, cmd: "bundle exec rspec" do
 
   clearing :on
 
-  # Feel free to open issues for suggestions and improvements
-
   # RSpec files
   rspec = dsl.rspec
   watch(rspec.spec_helper) { rspec.spec_dir }

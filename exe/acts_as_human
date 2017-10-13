@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'acts_as_human/cli'
+ActsAsHuman::CLI.start
