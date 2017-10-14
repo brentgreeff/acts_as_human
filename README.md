@@ -1,5 +1,36 @@
 # ActsAsHuman
 
+    class User < ActiveRecord::Base
+      # t.string "first_name"
+      # t.string "middle_names"
+      # t.string "last_name"
+      
+      acts_as_human
+    end
+
+Supplying first and last names separately:    
+    `user = User.new(first_name: 'Brent', last_name: 'Greeff')`
+    
+You can then read the full_name
+
+    user.full_name
+      => "Brent Greeff"
+
+Supplying a full_name:    
+    `user = User.new(full_name: "Brent Wicked Middle Names Greeff")`
+    
+You can then read the individual names:
+
+    user.first_name
+      => "Brent"
+
+    user.last_name
+      => "Greeff"
+
+    user.middle_names
+      => "Wicked Middle Names"
+
+
 Enable users to provide their full name in a single text input.
 Saves to 3 separate fields:
 first_name, middle_names and last_name allowing you to easily display their name
@@ -7,7 +38,6 @@ in different formats in different places.
 
 Validations limit each name field to 40 characters each, allowing a total length of 120 characters for the full name.
 Non-name like characters are invalid.
-
 
 ## Bundler
 
@@ -20,35 +50,12 @@ Adds validations to ensure that the names are reasonable.
 * Requires:
       first_name, last_name and middle_names columns in the database.
 
-@todo Need to add rake task to add fields to model.
+## Migration
 
-## Example
+    bundle exec acts_as_human migration users
 
-    class User < ActiveRecord::Base
-      acts_as_human
-    end
-    
-Supplying first and last names separately:    
-    `user = User.new(first_name: 'Brent', last_name: 'Greeff')`
-    
-You can then read the full_name
+Change "users" to the name of your existing table.
 
-    user.full_name
-      => "Brent Greeff"
-
-Supplying a full_name:    
-    `user = User.new(:full_name => "Brent Wicked Middle Names Greeff")`
-    
-You can then read the individual names:
-
-    user.first_name
-      => "Brent"
-
-    user.last_name
-      => "Greeff"
-
-    user.middle_names
-      => "Wicked Middle Names"
 
 ## Contributing
 
