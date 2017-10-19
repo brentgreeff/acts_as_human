@@ -1,3 +1,5 @@
+[![Build Status](https://semaphoreci.com/api/v1/brentgreeff/acts_as_human/branches/master/badge.svg)](https://semaphoreci.com/brentgreeff/acts_as_human)
+
 # ActsAsHuman
 
     class User < ActiveRecord::Base
