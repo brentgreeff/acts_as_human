@@ -12,7 +12,7 @@ RSpec.describe ActsAsHuman do
     context 'when the user is new' do
       let(:user) { Model.new }
 
-      it 'should have an empty full_name' do
+      it 'has an empty full_name' do
         expect( user.full_name ).to eq ''
       end
     end
@@ -20,7 +20,7 @@ RSpec.describe ActsAsHuman do
     context 'A name assiged through first_name and last_name' do
       let(:user) { Model.new first_name: 'Nelson', last_name: 'Mandela' }
 
-      it 'should have a full_name' do
+      it 'has a full_name' do
         expect( user.full_name ).to eq 'Nelson Mandela'
       end
     end
@@ -31,7 +31,7 @@ RSpec.describe ActsAsHuman do
           middle_names: 'Madiba Rolihlahla', last_name: 'Mandela'
       end
 
-      it 'should have a full_name' do
+      it 'has a full_name' do
         expect( user.full_name ).to eq 'Nelson Madiba Rolihlahla Mandela'
       end
     end
@@ -39,7 +39,7 @@ RSpec.describe ActsAsHuman do
     context 'A name assigned through full_name' do
       let(:user) { Model.new full_name: 'Nelson Mandela' }
 
-      it 'should have a first_name and last_name' do
+      it 'has a first_name and last_name' do
         expect( user.first_name ).to eq 'Nelson'
         expect( user.last_name ).to eq 'Mandela'
       end
@@ -48,7 +48,7 @@ RSpec.describe ActsAsHuman do
     context 'A name assigned through full_name with middle_names' do
       let(:user) { Model.new full_name: 'Nelson Madiba Rolihlahla Mandela' }
 
-      it 'should have a first_name and last_name' do
+      it 'has a first_name and last_name' do
         expect( user.first_name ).to eq 'Nelson'
         expect( user.middle_names ).to eq 'Madiba Rolihlahla'
         expect( user.last_name ).to eq 'Mandela'
@@ -58,16 +58,16 @@ RSpec.describe ActsAsHuman do
     context 'assigned a Scottish name' do
       let(:user) { Model.new full_name: 'Ewan Mc Greggor' }
 
-      it 'should split up correctly' do
+      it 'is split up correctly' do
         expect( user.first_name ).to eq 'Ewan'
         expect( user.last_name ).to eq 'Mc Greggor'
       end
     end
 
-    context 'assigned a Scottish name' do
+    context 'assigned another Scottish name' do
       let(:user) { Model.new full_name: 'Jade Frances Roseanne Mc Cracken' }
 
-      it 'should split up correctly' do
+      it 'is split up correctly' do
         expect( user.first_name ).to eq 'Jade'
         expect( user.middle_names ).to eq 'Frances Roseanne'
         expect( user.last_name ).to eq 'Mc Cracken'
@@ -78,7 +78,7 @@ RSpec.describe ActsAsHuman do
       let(:user) { user = Model.new }
       before { user.first_name = '' }
 
-      it "should be invalid" do
+      it "is invalid" do
         expect(user.valid?).not_to be
         expect(
           user.errors[:first_name]
@@ -89,7 +89,7 @@ RSpec.describe ActsAsHuman do
     context 'without a last_name' do
       let(:user) { Model.new first_name: 'Brent', last_name: '' }
 
-      it "should be invalid" do
+      it "is invalid" do
         expect(user.valid?).not_to be
         expect(
           user.errors[:last_name]
@@ -100,7 +100,7 @@ RSpec.describe ActsAsHuman do
     context 'when the first name is assigned through full_name' do
       let(:user) { Model.new full_name: 'Brent' }
 
-      it 'should require a last_name' do
+      it 'requires a last_name' do
         expect(user.valid?).not_to be
         expect(
           user.errors[:last_name]
@@ -111,7 +111,7 @@ RSpec.describe ActsAsHuman do
     context 'with invalid characters' do
       let(:user) { Model.new full_name: '<Brent> Middle >< Names Gre&eff' }
 
-      it 'should be invalid' do
+      it 'is invalid' do
         expect(user.valid?).not_to be
         expect(
           user.errors[:first_name]
@@ -130,7 +130,7 @@ RSpec.describe ActsAsHuman do
         Model.new first_name: 'over 40 characters----over 40 characters*'
       end
 
-      it 'should be invalid' do
+      it 'is invalid' do
         expect(user.valid?).not_to be
         expect(
           user.errors[:first_name]
@@ -143,7 +143,7 @@ RSpec.describe ActsAsHuman do
         Model.new last_name: 'over 40 characters----over 40 characters*'
       end
 
-      it 'should be invalid' do
+      it 'is invalid' do
         expect(user.valid?).not_to be
         expect(
           user.errors[:last_name]
@@ -156,7 +156,7 @@ RSpec.describe ActsAsHuman do
         Model.new middle_names: 'over 40 characters----over 40 characters*'
       end
 
-      it 'should be invalid' do
+      it 'is invalid' do
         expect(user.valid?).not_to be
         expect(
           user.errors[:middle_names]
@@ -176,7 +176,7 @@ RSpec.describe ActsAsHuman do
       context 'without a last_name' do
         let(:user) { Model.new first_name: 'Brent', last_name: '' }
 
-        it "should be valid" do
+        it "is valid" do
           expect(user.valid?).to be
         end
       end
