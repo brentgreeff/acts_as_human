@@ -1,34 +1,32 @@
-# coding: utf-8
-lib = File.expand_path("../lib", __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "acts_as_human/version"
+# frozen_string_literal: true
 
-Gem::Specification.new do |s|
-  s.name = %q{acts_as_human}
-  s.version = ActsAsHuman::VERSION
-  s.authors = ["Brent"]
-  s.email = ["brentgreeff@gmail.com"]
+require_relative 'lib/acts_as_human/version'
 
-  s.summary = %q{Rails plugin to handle first_name, middle_names and last_name combinations.}
-  s.homepage = %q{http://github.com/brentgreeff/acts_as_human}
-  s.license = "MIT"
+Gem::Specification.new do |spec|
+  spec.name        = 'acts_as_human'
+  spec.version     = ActsAsHuman::VERSION
+  spec.authors     = ['Brent Greeff']
+  spec.email       = ['brentgreeff@gmail.com']
+  spec.summary     = 'Rails plugin to handle first_name, middle_names and last_name combinations.'
+  spec.homepage    = 'https://github.com/brentgreeff/acts_as_human'
+  spec.license     = 'MIT'
 
-  s.files = `git ls-files -z`.split("\x0").reject do |f|
-    f.match(%r{^(test|spec|features)/})
-  end
-  s.bindir = "exe"
-  s.executables = s.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  s.require_paths = ["lib"]
+  spec.required_ruby_version = '>= 3.3'
 
-  s.add_development_dependency "activesupport", "~> 5.1"
-  s.add_development_dependency "activerecord", "~> 5.1"
-  s.add_development_dependency "sqlite3"
+  spec.metadata = {
+    'source_code_uri'        => 'https://github.com/brentgreeff/acts_as_human',
+    'rubygems_mfa_required'  => 'true'
+  }
 
-  s.add_development_dependency "bundler", "~> 1.15"
-  s.add_development_dependency "rake", "~> 10.0"
-  s.add_development_dependency "rspec", "~> 3.0"
-  s.add_development_dependency "guard-rspec"
-  s.add_development_dependency "cucumber"
-  s.add_development_dependency "aruba"
-  s.add_development_dependency "awesome_print"
+  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{\A(?:spec|test|features)/}) }
+  spec.bindir        = 'exe'
+  spec.executables   = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
+  spec.require_paths = ['lib']
+
+  spec.add_dependency 'activerecord', '>= 7.0'
+  spec.add_dependency 'activesupport', '>= 7.0'
+  spec.add_dependency 'railties', '>= 7.0'
+
+  spec.add_development_dependency 'rspec-rails'
+  spec.add_development_dependency 'sqlite3'
 end
