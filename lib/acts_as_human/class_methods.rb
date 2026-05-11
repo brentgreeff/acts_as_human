@@ -7,11 +7,9 @@ module ActsAs
         cattr_accessor :require_last_name
         self.require_last_name = options.fetch(:require_last_name, true)
 
-        class_eval do
-          validate_first_name
-          validate_middle_names
-          validate_last_name
-        end
+        validate_first_name
+        validate_middle_names
+        validate_last_name
       end
 
       private
