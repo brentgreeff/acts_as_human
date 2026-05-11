@@ -1,0 +1,9 @@
+pre-commit:
+  commands:
+    rubocop:
+      tags: style
+      glob: "*.rb"
+      run: bundle exec rubocop --force-exclusion {staged_files}
+    audit:
+      tags: security
+      run: bundle exec bundler-audit check --update

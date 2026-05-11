@@ -1,13 +1,7 @@
-CurrentDir = File.expand_path( File.dirname(__FILE__) )
+# frozen_string_literal: true
 
-# log_path = File.join(CurrentDir, "debug.log")
-# ActiveRecord::Base.logger = Logger.new(log_path)
+current_dir = File.expand_path(__dir__)
 
-def load_db_config
-  database_yml = File.join(CurrentDir, 'database.yml')
-  config = YAML::load( IO.read(database_yml) )
-  config['test']
-end
-
-ActiveRecord::Base.establish_connection( load_db_config )
-load( File.join(CurrentDir, "schema.rb") )
+config = YAML.safe_load_file(File.join(current_dir, 'database.yml'))
+ActiveRecord::Base.establish_connection(config['test'])
+load(File.join(current_dir, 'schema.rb'))
