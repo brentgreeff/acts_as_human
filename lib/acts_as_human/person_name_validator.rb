@@ -1,22 +1,11 @@
 # frozen_string_literal: true
 
-module ActiveRecord
-  module Validations
-    module ClassMethods
-      def validates_as_person_name(*attr_names)
-        config = {
-          with: ActsAs::Human.acceptable_name,
-          message: ActsAs::Human.bad_name_message
-        }
-        check_format(attr_names, config)
-      end
+class PersonNameValidator < ActiveModel::EachValidator
+  ACCEPTABLE = %r{\A[^[:cntrl:]\\<>/&]*\z}
 
-      private
+  def validate_each(record, attribute, value)
+    return if value.nil?
 
-      def check_format(attr_names, config)
-        config.update(attr_names.pop) if attr_names.last.is_a?(Hash)
-        validates_format_of attr_names, config
-      end
-    end
+    record.errors.add(attribute, 'some characters in your name are not allowed') unless value.match?(ACCEPTABLE)
   end
 end

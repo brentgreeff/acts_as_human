@@ -15,26 +15,21 @@ module ActsAs
       private
 
       def validate_first_name
-        validates_presence_of :first_name, message: 'first name is required'
-        validates_length_of :first_name, maximum: 40,
-                                         message: 'first name is too long (max 40 characters)'
-        validates_as_person_name :first_name
+        validates :first_name, presence: { message: 'first name is required' },
+                               length: { maximum: 40, message: 'first name is too long (max 40 characters)' },
+                               person_name: true
       end
 
       def validate_middle_names
-        validates_length_of :middle_names, maximum: 40,
-                                           allow_blank: true,
-                                           message: 'middle names are too long (max 40 characters)'
-        validates_as_person_name :middle_names, allow_nil: true
+        validates :middle_names, length: { maximum: 40, message: 'middle names are too long (max 40 characters)' },
+                                 person_name: true,
+                                 allow_nil: true
       end
 
       def validate_last_name
-        validates_presence_of :last_name, if: -> { require_last_name },
-                                          message: 'last name is required'
-        validates_length_of :last_name, maximum: 40,
-                                        allow_blank: true,
-                                        message: 'last name is too long (max 40 characters)'
-        validates_as_person_name :last_name
+        validates :last_name, presence: { message: 'last name is required', if: -> { require_last_name } },
+                              length: { maximum: 40, message: 'last name is too long (max 40 characters)' },
+                              person_name: true
       end
     end
   end
