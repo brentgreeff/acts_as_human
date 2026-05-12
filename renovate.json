@@ -1,5 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
-  "enabledManagers": ["ruby-version"]
+  "enabledManagers": ["ruby-version"],
+  "packageRules": [
+    {
+      "matchManagers": ["ruby-version"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    }
+  ]
 }
